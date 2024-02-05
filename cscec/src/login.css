@@ -1,0 +1,123 @@
+
+.App {
+    text-align: center;
+  }
+  
+  
+  .remplit {
+    background-color: #282c34;
+    width: 200px;
+    height: 200px;
+     margin: 50px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    
+  }
+  
+  
+  .fields {
+    float: right;
+    margin-right: 50px; /* Adjust margin as needed */
+    text-align: left;
+    margin-top: 150px;
+  }
+  
+  label{
+    margin-left: 5px;
+  }
+  .emailin, .mp {
+    width: 400px;
+    height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .welcom{
+    color: #2c6cf5;
+    margin-left: 5px;
+  
+  }
+  ::placeholder{
+    padding-left: 5px;
+  }
+  .oublier{
+    background-color: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.523);
+  }
+  .connecter{
+    background-color: #2c6cf5;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    height: 30px;
+    margin-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+  
+  }
+  .connecter:hover, .oublier{
+    cursor: pointer;
+  }
+  .connecter:active{
+    opacity: 0.8;
+  }
+  .remplit {
+    background-color: #282c34;
+    width: 200px;
+    height: 200px; /* Set a height for the element */
+    margin: auto; /* Center horizontally */
+    display: inline-block;  align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+  }
+  
+  h1{
+    text-align: left;
+  }
+  .img{
+    height: 602px;
+    width: 50%;
+    float: left;
+    background-color: #282c34;
+  }
+  .back{
+    height:100%;
+    width: 100%;
+    
+  }
+  @keyframes slideInFromLeft {
+    from {
+      transform: translateX(-100%); /* Start off the screen to the right */
+    }
+    to {
+      transform: translateX(0); /* Move to the original position */
+    }
+  }
+  
+  .img {
+    position: relative; /* Make sure the position is set to relative or absolute for left to work */
+    animation: slideInFromLeft 1.5s ease-in-out; /* Adjust the duration and timing function as needed */
+  }
+  @keyframes slideInFromright {
+    from {
+      transform: translateX(100%); /* Start off the screen to the right */
+    }
+    to {
+      transform: translateX(0) ; /* Move to the original position */
+    }
+  }
+  
+  .fields {
+    animation: slideInFromright 1.5s ease-in-out;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
