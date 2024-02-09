@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AfficherController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/enregistrer', [AuthController::class, 'enregistrer']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/afficherTable', [AfficherController::class, 'afficherTable']);

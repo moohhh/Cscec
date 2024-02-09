@@ -22,18 +22,19 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
+        $nom = $request->input('nom');
         $email = $request->input('email');
         $password = $request->input('password');
 
         // Check if the employé exists
-        $employé = employés::where('email', $email)->first();
+        $employé = employés::where('email', $email)->where('nom', $nom)->first();
 
         if (!$employé) {
             return response()->json(["message" => "Employé non enregistré"], 404);
         }
 
         // Verify the password
-        if (!Hash::check($password, $employé->password)) {
+        if (!($password == $employé->password)) {
             return response()->json(["message" => "Mot de passe incorrect"], 401);
         }
 
