@@ -1,16 +1,87 @@
+
 .slider{
     height: 65vh;
     display: block;
-    margin: 0;
     width: 100%;
+    
     
 }
 .divs{
-    margin-left: 3px;
-    width: 97%;
-    margin-left:11px ;
+    width: 96%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    
 }
+.prjdis{
+float: left;
+position: relative;
+display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  max-width: 100%; /* Set maximum width */
+  height: 100%;
+}
+.slidertitle{
+    font-size: 20px;
 
 
+}
+.sliderdescription {
+    padding: 5px;
+    font-size: medium;
+    font-weight: bold	  ;  align-self: start;
+    margin: 10px;
+    word-wrap: break-word; /* Wrap long words onto the next line */
+    white-space: normal; /* Allow wrapping at spaces */
+    max-height: 55vh; /* Set maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
 
+  .divs {
+    position: relative; /* Make the container a positioning context for absolute positioning */
+  }
+  
+  
+  /* Style for the buttons container */
+  .btn-container {
+    position: absolute;
+    top: 50%; /* Align vertically at the center */
+    display: flex;
+    align-items: center; /* Vertically center the buttons */
+    justify-content: space-between; /* Distribute buttons evenly */
+    width: 100%;
+    padding: 0 20px; /* Add padding for space */
+  }
+  
+  /* Style for the previous and next buttons */
+  .btn-container button {
+    background-color: #007bff53; /* Example background color */
+    color: #fff; /* Example text color */
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 4  ;
+  }
+  .prevbtn{
+    margin-left: 480px;
+  }
+ 
+  
+  @keyframes slideInFrom{
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+  
+  /* Apply slideInFromRight animation to the .fields class */
+  .slider.slide-in {
+    animation: slideInFrom 3s ease-in-out;
+  }
   

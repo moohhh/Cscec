@@ -1,32 +1,48 @@
-.body {
-  overflow: hidden;
-}
+/* Define the slide-in animation */
+
 
 .card-container {
   display: flex;
-  overflow-x: auto; 
-  white-space: nowrap; 
+  overflow-x: scroll;
+  white-space: nowrap;
   width: 100%;
+  scrollbar-width: none;
 }
 
-.first {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 30%; 
-  height: auto;
-  box-shadow: 0px 0px 20px;
+.card {
+  display: block;
+  width: 30%;
+  max-width: 100%;
+  height: 410px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 30px;
-  margin-right: 10px; 
+  margin: 10px;
   flex-grow: 0;
   flex-shrink: 0;
+  perspective: 1000px;
+  transition: transform 0.5s ease-in-out;
 }
 
 .cardpic {
   width: 100%;
+  height: 100%;
+  margin: 0;
+  color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: end;
+  overflow: hidden;
+  border-radius: 30px;
+  background-size: cover;
+}
+
+.cardpicb {
+  width: 100%;
   height: 200px;
   margin: 0;
-  background-color: black;
+  background-size: fill;
   color: white;
   position: relative;
   display: flex;
@@ -36,28 +52,122 @@
   border-radius: 30px;
 }
 
-.cardpic img {
-  width: 100%; 
-  height: auto; 
+.cardpicb img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
 }
 
-.first:hover {
-  cursor: pointer;  
+.cardpic::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) 70%);
+  pointer-events: none;
 }
 
-.first img {
-  transition: transform 0.5s ease-in-out; 
+.card:hover {
+  cursor: pointer;
 }
 
-.first:hover img {
-  transform: scale(1.1); 
+.card img {
+  transition: transform 0.5s ease-in-out;
+}
+
+.card:hover img {
+  transform: scale(1.1);
 }
 
 .cardtitle {
-  margin: 10px ;
-  font-size: 20px;
+  font-size: 0px;
+  font-variant: normal;
+  z-index: 3;
+  margin: 50px;
+  max-width: fit-content;
+}
+
+.cardtitleb {
+  font-size: 30px;
+  font-variant: normal;
+  font-weight: 500;
+  z-index: 3;
+  margin-left: 20px;
+}
+
+.tit {
+  font-size: 30px;
+  font-weight: 700;
+  z-index: 3;
+}
+
+.datepost {
+  font-size: 10px;
+  font-weight: 700;
+  z-index: 3;
+  color: rgb(156, 154, 154);
+}
+
+.flip {
+  color: white;
+  margin-left: 250px;
+  margin-bottom: 20px;
+  z-index: 1;
 }
 
 .carddescription {
   padding: 5px;
+  font-family: American Typewriter, serif;
+  font-size: medium;
+  align-self: start;
+  margin: 10px;
+  word-wrap: break-word;
+  white-space: normal;
+  max-height: 25vh;
+  overflow-y: auto;
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: 1s;
+}
+
+.card-front {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(-180deg);
+  transition: 2s;
+}
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+/* Apply slideInFromRight animation to the .card-container */
+.card-container.slide-in {
+  animation: slideInFromRight 2s ease-in-out;
 }

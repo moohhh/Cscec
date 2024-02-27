@@ -16,6 +16,7 @@
     border-bottom: #2c6cf5 2px solid;
     background-color: white;
     z-index: 1;
+    
 }
 
 nav ul {
@@ -41,21 +42,37 @@ nav a {
     border: 1px solid #ccc;
     padding: 10px;
     flex-direction: column;
+    list-style:circle;
 }
 
 .rh a:hover {
     border: none;
     display: block;
+
+}
+.rh li:hover{
+    list-style: disc;
+
+}
+.rh li:hover::marker {
+    list-style: disc;
+    color: #2c6cf5; /* Change circle color when list item is hovered */
 }
 
+
 nav li:hover .rh {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.79);
+    padding-left: 30px;
 }
 
 nav a:hover {
     color: #2c6cf5;
     border-bottom: #2c6cf5 3px solid;
     position: relative;
+    
 }
 
 .logo {

@@ -1,0 +1,50 @@
+footer{
+    background-color: #2c6cf5;
+    
+}
+.footer-links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Permet aux éléments de s'enrouler sur plusieurs lignes si nécessaire */
+    margin-top: 60px;
+    border-bottom: 1px white solid ;
+   
+
+}
+
+.footer-section {
+    flex: 1; /* Permet aux sections de pied de page d'occuper un espace égal */
+    margin-right: 20px;
+    margin-left: 20px; /* Espacement entre les sections */
+    text-align: start; /* Centre le contenu à l'intérieur de chaque section */
+}
+h4{
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.footer-section ul {
+    list-style-type: none; /* Remove bullet points from list items */
+    font-size: 12px;
+}
+
+.footer-section a{
+    color: white;
+    text-decoration: none;
+}
+.footer-section a:hover{
+    color: white;
+}
+.footer-section ul li {
+    margin-bottom: 10px; /* Add margin between list items */
+}
+
+.footer-section:last-child {
+    margin-right: 0; /* Supprime la marge à droite du dernier élément pour éviter un espacement excessif */
+}
+.footer-bottom{
+
+padding: 10px;}
+.footer-bottom p{
+    color: white;
+}
