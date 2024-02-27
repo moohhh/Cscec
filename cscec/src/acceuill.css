@@ -4,7 +4,6 @@
   margin: 0;
 }
 
-.ppp {}
 
 .presentation {
   height: 500px;
@@ -26,10 +25,6 @@
   color: rgba(0, 0, 0, 0.491);
 }
 
-h1 {
-  margin: 20px;
-  font-family: sans-serif;
-}
 
 .Container {
   margin-top: 60px;
@@ -75,14 +70,14 @@ h1 {
 }
 
 /* Style the table */
-table {
+.tablebio {
   width: 100%;
   border-spacing: 30px; /* Add spacing between adjacent cells */
   
 }
 
 /* Style the table cells */
-td {
+.tdbio {
   padding: 15px;
   padding-right: 60px;
   padding-left: 60px;
@@ -182,4 +177,18 @@ opacity: 1;  }
 /* Apply slideInFromRight animation to .ta elements with .slide-in class */
 .ta.slide-in {
   animation: slideInFromRight 2s ease-in-out;
+}
+.presp{
+  width: 80%;
+  margin: 0 auto;
+  font-size:xxx-large;
+  font-weight:bold;
+}
+.prjp{
+  width: 90%;
+  margin-left: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: sans-serif;
+  font-size: larger;
 }

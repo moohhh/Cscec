@@ -59,6 +59,31 @@ nav a {
     color: #2c6cf5; /* Change circle color when list item is hovered */
 }
 
+.rh2 {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    flex-direction: column;
+    list-style:circle;
+    margin-left: 60px;
+}
+
+.rh2 a:hover {
+    border: none;
+    display: block;
+
+}
+.rh2 li:hover{
+    list-style: disc;
+
+}
+.rh2 li:hover::marker {
+    list-style: disc;
+    color: #2c6cf5; /* Change circle color when list item is hovered */
+}
+
 
 nav li:hover .rh {
     display: flex;
@@ -67,11 +92,29 @@ nav li:hover .rh {
     background-color: rgba(255, 255, 255, 0.79);
     padding-left: 30px;
 }
+nav li li:focus-within .rh2 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.79);
+    padding-left: 30px;
+}
+.rh button{
+    background: none;
+    border: none;
+}
+.rh button:hover{
+    background: none;
+    border: none;
+    color: #2c6cf5;
+    cursor:pointer;
+    text-decoration: underline;
+}
 
 nav a:hover {
     color: #2c6cf5;
-    border-bottom: #2c6cf5 3px solid;
     position: relative;
+    text-decoration: underline;
     
 }
 
@@ -116,3 +159,53 @@ nav a:hover {
         z-index: 2; /* Set a higher z-index value if needed */
     }
 }
+.logo:hover{
+    cursor: pointer;
+}
+.notif {
+    display: none;
+}
+
+.nav button:focus + .notif {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    position: absolute;
+   right: .5%;
+    width: 350px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 999;
+    height: auto;
+    max-height: 400px;
+    overflow-y: auto; /* Enable vertical scrollbar */
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+   
+    border-radius: 10px;
+}
+
+
+.notifp {
+    background-color: #2c6cf5;
+    color: #fff;
+    padding: 5px;
+    width: 100%;
+}
+
+.notifcontent {
+    margin-left: 3px;
+}
+.notifcontent .notifid{
+    font-weight: bold;
+}
+
+.notiftime {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: rgba(0, 0, 0, 0.596);
+    /* CSS animation for sliding effect */
+    animation: slide 10s linear infinite; /* Adjust the duration as needed */
+}
+
+

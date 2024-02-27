@@ -1,0 +1,164 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.nav {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Change to column on small screens */
+    align-items: center;
+    padding: 1rem;
+    border-bottom: #2c6cf5 2px solid;
+    background-color: white;
+    z-index: 1;
+    
+}
+
+nav ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column; /* Change to column on small screens */
+    gap: 1rem;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    display: block;
+    border: none;
+}
+
+.rh {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    flex-direction: column;
+    list-style:circle;
+}
+
+.rh a:hover {
+    border: none;
+    display: block;
+
+}
+.rh li:hover{
+    list-style: disc;
+
+}
+.rh li:hover::marker {
+    list-style: disc;
+    color: #2c6cf5; /* Change circle color when list item is hovered */
+}
+
+.rh2 {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    flex-direction: column;
+    list-style:circle;
+    margin-left: 60px;
+}
+
+.rh2 a:hover {
+    border: none;
+    display: block;
+
+}
+.rh2 li:hover{
+    list-style: disc;
+
+}
+.rh2 li:hover::marker {
+    list-style: disc;
+    color: #2c6cf5; /* Change circle color when list item is hovered */
+}
+
+
+nav li:hover .rh {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.79);
+    padding-left: 30px;
+}
+nav li li:focus-within .rh2 {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.79);
+    padding-left: 30px;
+}
+.rh button{
+    background: none;
+    border: none;
+}
+.rh button:hover{
+    background: none;
+    border: none;
+    color: #2c6cf5;
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+nav a:hover {
+    color: #2c6cf5;
+    position: relative;
+    text-decoration: underline;
+    
+}
+
+.logo {
+    height: 50px;
+    width: 220px;
+}
+
+.connecter2 {
+    background-color: #2c6cf5;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.connecter2:hover {
+    cursor: pointer;
+}
+
+.connecter2:active {
+    opacity: 0.8;
+}
+
+@media only screen and (min-width: 768px) {
+    /* Apply these styles for screens wider than 768px */
+    .nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: row;
+    }
+
+    .rh {
+        position: fixed;
+        display: none;
+        z-index: 2; /* Set a higher z-index value if needed */
+    }
+}
+.logo:hover{
+    cursor: pointer;
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './acceuill.css';
 import Slider from './component/slider';
 import Afficher from './afficher';
-import Navbar from './component/navbar';
+import Navbarconnecter from './component/navbarconnecter';
 import Footer from './component/footer';
 
 const Acceuil = () => {
@@ -88,11 +88,13 @@ const Acceuil = () => {
   return (
     <>
       <div>
-        <Navbar />
+        <Navbarconnecter />
         <div className='ppp'>
           <div className='presentation'>
             <img src={require('./images/presentation.png')} className='presentationpic' alt="" />
           </div>
+          <p className='presp'>
+          Votre partenaire de confiance en construction        </p>
           <div className='bio'>
             <div ref={ageref} className={`age ${showage ? 'slide-in' : ''}`}>
               <p className='num'>42</p>
@@ -100,20 +102,20 @@ const Acceuil = () => {
             </div>
             <div className='ta'>
   <div ref={taref} className={`ta ${showta ? 'slide-in' : ''}`}>
-                <table>
-                  <tr>
-                    <td colSpan={3} rowSpan={1}>
+                <table className='tablebio'>
+                  <tr className='trbio'>
+                    <td colSpan={3} rowSpan={1} className='tdbio'>
                       <p className='num'>60+</p><p className='tex'>projets</p>
-                    </td>
-                    <td colSpan={3} rowSpan={1}>
+                    </td >
+                    <td colSpan={3} rowSpan={1}className='tdbio'>
                       <p className='num'>10+</p><p className='tex'>payés</p>
                     </td>
                   </tr>
-                  <tr>
-                    <td colSpan={3} rowSpan={1}>
+                  <tr className='trbio'>
+                    <td colSpan={3} rowSpan={1}className='tdbio'>
                       <p className='num'>60+</p><p className='tex'>projets</p>
                     </td>
-                    <td colSpan={3} rowSpan={1}>
+                    <td colSpan={3} rowSpan={1}className='tdbio'>
                       <p className='num'>10+</p><p className='tex'>payés</p>
                     </td>
                   </tr>
@@ -123,11 +125,13 @@ const Acceuil = () => {
           </div>
         </div>
         <div className='separateur'>__________________________________________________________________________________________________________________________________________________________________________________</div>
-        <div className='projets'><h1>Nouveaux Projets</h1></div>
+       
+        <div className='projets'><h1 >Nouveaux Projets</h1><p className='prjp'>Découvrez nos nouveaux projets : explorez notre dernière collection de réalisations et découvrez comment nous donnons vie à des idées créatives. Parcourez notre galerie pour trouver l'inspiration pour votre prochain projet !</p></div>
+        <p></p>
         <div ref={sliderRef} className={`slider ${showSlider ? 'slide-in' : ''}`}>
           <Slider />
         </div>
-        <h1>Nouveaux Evenement</h1>
+        <h1>Nouveaux Evenements</h1><p className='prjp'>Ne manquez pas nos prochains événements ! Découvrez ce qui se passe dans notre communauté et rejoignez-nous pour des moments mémorables. Consultez notre calendrier pour rester informé et participer à nos activités !</p>
         <div ref={cardref} className={`card-container ${showcard ? 'slide-in' : ''}`}>
           <Afficher />
         </div>

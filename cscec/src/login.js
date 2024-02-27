@@ -30,7 +30,12 @@ import { Navigate, useNavigate } from 'react-router-dom';
           password: password,
         });
         console.log(response.data);
-        navigate('/');
+        if (email=== "moh@gmail.com") {
+            navigate('/accueilladmin');
+        } else {
+            navigate('/');
+        }
+        
       } catch (error) {
         console.error('Error during login:', error.message);
         if (error.response && error.response.data && error.response.data.message) {

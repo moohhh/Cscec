@@ -7,6 +7,7 @@
   white-space: nowrap;
   width: 100%;
   scrollbar-width: none;
+  height: 460px;
 }
 
 .card {
@@ -135,6 +136,10 @@
   transform-style: preserve-3d;
   transition: 1s;
 }
+.card-inner:hover{
+  height: 110%;
+}
+
 
 .card-front {
   position: absolute;
@@ -144,6 +149,7 @@
   height: 100%;
   backface-visibility: hidden;
 }
+
 
 .card-back {
   position: absolute;
