@@ -15,20 +15,14 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    // File: config/cors.php
 
+    'paths' => ['api/*', '/storage/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-
-    'allowed_origins' => ['*'],
-
+    'allowed_origins' => ['*'], // For development only, specify your front-end's origin for production
     'allowed_origins_patterns' => [],
-
-    'allowed_headers' => ['*'],
-
+    'allowed_headers' => ['Content-Type', 'X-Requested-With', 'Authorization'],
     'exposed_headers' => [],
-
     'max_age' => 0,
-
-    'supports_credentials' => false,
-
+    'supports_credentials' => true, // Adjust based on your needs
 ];

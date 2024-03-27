@@ -1,98 +1,229 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../component/navbar';
+import Navbar from '../component/navbarconnecter';
 import './demandesalleAdmin.css';
 import axios from 'axios';
 
-export default function SalleAdmin() {
-    const [buttonStates, setButtonStates] = useState({});
+export default function DemandeSalleAdmin() {
+  const jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi'];
+  const heures = Array.from({ length: 10 }, (_, i) => 8 + i);
+  const [selectedSalle, setSelectedSalle] = useState('Salle A');
+  
+  const initialButtonState = (salle) => {
+    const savedState = localStorage.getItem(`buttonState${salle}`);
+    return savedState ? JSON.parse(savedState) : jours.map(() => Array(heures.length).fill(false));
+  };
 
-    useEffect(() => {
-        const storedButtonStates = localStorage.getItem('buttonStates');
-        if (storedButtonStates) {
-            setButtonStates(JSON.parse(storedButtonStates));
+  const [buttonStateSalleA, setButtonStateSalleA] = useState(initialButtonState('SalleA'));
+  const [buttonStateSalleB, setButtonStateSalleB] = useState(initialButtonState('SalleB'));
+  const [buttonStateSalleC, setButtonStateSalleC] = useState(initialButtonState('SalleC'));
+  const [buttonStateSalleD, setButtonStateSalleD] = useState(initialButtonState('SalleD'));
+
+  useEffect(() => {
+    localStorage.setItem('buttonStateSalleA', JSON.stringify(buttonStateSalleA));
+    localStorage.setItem('buttonStateSalleB', JSON.stringify(buttonStateSalleB));
+    localStorage.setItem('buttonStateSalleC', JSON.stringify(buttonStateSalleC));
+    localStorage.setItem('buttonStateSalleD', JSON.stringify(buttonStateSalleD));
+
+  }, [buttonStateSalleA, buttonStateSalleB, buttonStateSalleC, buttonStateSalleD]);
+ 
+
+  const handleSalleChange = (e) => {
+    setSelectedSalle(e.target.value);
+  };
+
+  const handleButtonClick = async (indexJour, indexHeure, salle) => {
+    // Example data - you might want to replace these with actual dynamic values
+    const employe_id = localStorage.getItem('id'); // Récupérer l'ID de l'employé du stockage local
+    const title = `Reservation de la salle ${salle}`;
+    const description = `Reservation de la salle  ${salle} le  ${jours[indexJour]} à ${heures[indexHeure]}H:00`;
+
+    try {
+        await axios.post('http://localhost:8000/api/demande', {
+            employe_id,
+            title,
+            description
+        });
+
+        // Here you can handle the state update to reflect the change on the UI,
+        // like showing the reservation as pending or confirmed based on the response.
+        alert('Reservation request sent successfully!');
+    } catch (error) {
+        console.error("Error sending reservation request:", error.response.data.message);
+        alert('Failed to send reservation request.');
+    }
+
+    let newState;
+    switch(salle) {
+      case 'Salle A':
+        newState = buttonStateSalleA.map((row, i) =>
+          i === indexJour ? row.map((col, j) => (j === indexHeure ? !col : col)) : row
+        );
+        setButtonStateSalleA(newState);
+        break;
+      case 'Salle B':
+        newState = buttonStateSalleB.map((row, i) =>
+          i === indexJour ? row.map((col, j) => (j === indexHeure ? !col : col)) : row
+        );
+        setButtonStateSalleB(newState);
+        break;
+      case 'Salle C':
+        newState = buttonStateSalleC.map((row, i) =>
+          i === indexJour ? row.map((col, j) => (j === indexHeure ? !col : col)) : row
+        );
+        setButtonStateSalleC(newState);
+        break;
+      case 'Salle D':
+        newState = buttonStateSalleD.map((row, i) =>
+          i === indexJour ? row.map((col, j) => (j === indexHeure ? !col : col)) : row
+        );
+        setButtonStateSalleD(newState);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const renderTable = () => {
+    switch (selectedSalle) {
+      case 'Salle A':
+        return (
+          <table className='tt'>
+            <thead>
+              <tr>
+                <th className='tdt'>Jour / Heure</th>
+                {heures.map((heure, index) => (
+                  <th key={index} className='tdt'>{heure}H:00</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {jours.map((jour, indexJour) => (
+                <tr key={indexJour}>
+                  <td className='tdt'>{jour}</td>
+                  {heures.map((heure, indexHeure) => (
+                    <td key={indexHeure} className=''>
+                     <button 
+                      onClick={() => handleButtonClick(indexJour, indexHeure, 'Salle A')}
+                      className={buttonStateSalleA[indexJour][indexHeure] ? 'orangeBackground ' : 'btnt'}
+                    >
+                      {buttonStateSalleA[indexJour][indexHeure] ? 'En Attente' : 'Reserver'}
+                    </button>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        );
+        case 'Salle B':
+            return (
+              <table className='tt'>
+                <thead>
+                  <tr>
+                    <th className='tdt'>Jour / Heure</th>
+                    {heures.map((heure, index) => (
+                      <th key={index} className='tdt'>{heure}H:00</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {jours.map((jour, indexJour) => (
+                    <tr key={indexJour}>
+                      <td className='tdt'>{jour}</td>
+                      {heures.map((heure, indexHeure) => (
+                        <td key={indexHeure} className=''>
+                          <button 
+                            onClick={() => handleButtonClick(indexJour, indexHeure, 'Salle B')}
+                            className={buttonStateSalleB[indexJour][indexHeure] ? 'orangeBackground btnt' : 'btnt'}
+                          >
+                            {buttonStateSalleB[indexJour][indexHeure] ? 'En Attente' : 'Reserver'} 
+                          </button>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            );
+          case 'Salle C':
+            return (
+              <table className='tt'>
+     <thead>
+                  <tr>
+                    <th className='tdt'>Jour / Heure</th>
+                    {heures.map((heure, index) => (
+                      <th key={index} className='tdt'>{heure}H:00</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {jours.map((jour, indexJour) => (
+                    <tr key={indexJour}>
+                      <td className='tdt'>{jour}</td>
+                      {heures.map((heure, indexHeure) => (
+                        <td key={indexHeure} className=''>
+                          <button 
+                            onClick={() => handleButtonClick(indexJour, indexHeure, 'Salle C')}
+                            className={buttonStateSalleC[indexJour][indexHeure] ? 'orangeBackground ' : 'btnt'}
+                          >
+                            {buttonStateSalleC[indexJour][indexHeure] ? 'En Attente' : 'Reserver'} 
+                          </button>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>          </table>
+            );
+          case 'Salle D':
+            return (
+              <table className='tt'>
+     <thead>
+                  <tr>
+                    <th className='tdt'>Jour / Heure</th>
+                    {heures.map((heure, index) => (
+                      <th key={index} className='tdt'>{heure}H:00</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {jours.map((jour, indexJour) => (
+                    <tr key={indexJour}>
+                      <td className='tdt'>{jour}</td>
+                      {heures.map((heure, indexHeure) => (
+                        <td key={indexHeure} className=''>
+                          <button 
+                            onClick={() => handleButtonClick(indexJour, indexHeure, 'Salle D')}
+                            className={buttonStateSalleD[indexJour][indexHeure] ? 'orangeBackground btnt' : 'btnt'}
+                          >
+                            {buttonStateSalleD[indexJour][indexHeure] ? 'En Attente' : 'Reserver'} 
+                          </button>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>          </table>
+            );
+          default:
+            return null;
         }
-    }, []);
-
-    const saveButtonStatesToLocalStorage = (updatedButtonStates) => {
-        localStorage.setItem('buttonStates', JSON.stringify(updatedButtonStates));
-    };
-
-    const handleButtonClick = async (day, hour) => {
-        const buttonId = `${day.toLowerCase()}-${hour}`;
-        const isButtonClicked = buttonStates[buttonId];
-
-        try {
-            if (!isButtonClicked || isButtonClicked === 'Reserver') {
-                // Envoyer une demande de réservation
-                await axios.post('http://localhost:8000/api/demande', {
-                    titre: "Reservation de salle",
-                    day: day,
-                    hour: hour
-                });
-                console.log('Notification envoyée avec succès !');
-
-                // Mettre à jour l'état du bouton à "En attente"
-                const updatedButtonStates = {
-                    ...buttonStates,
-                    [buttonId]: 'En attente'
-                };
-                setButtonStates(updatedButtonStates);
-                saveButtonStatesToLocalStorage(updatedButtonStates);
-            } else {
-                // Annuler la demande de réservation
-                await axios.post('http://localhost:8000/api/annulerDemande', {
-                    day: day,
-                    hour: hour // ID de la notification à annuler
-                });
-                console.log('Notification annulée avec succès !');
-
-                // Mettre à jour l'état du bouton à "Reserver"
-                const updatedButtonStates = {
-                    ...buttonStates,
-                    [buttonId]: 'Reserver'
-                };
-                setButtonStates(updatedButtonStates);
-                saveButtonStatesToLocalStorage(updatedButtonStates);
-            }
-        } catch (error) {
-            console.error('Error handling button click:', error);
-        }
-    };
-
-    return (
-        <div>
-            <Navbar />
-            <h1 className='hh1'>Reserver une salle par ici</h1>
-            <div className='containert'>
-                <table className='tt'>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            {[...Array(10)].map((_, hourIndex) => (
-                                <th key={hourIndex} className='tdt'>{hourIndex + 8}H:00</th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi'].map((day, dayIndex) => (
-                            <tr key={dayIndex}>
-                                <td className='tdt'>{day}</td>
-                                {[...Array(10)].map((_, hourIndex) => (
-                                    <td key={hourIndex} className='tdt'>
-                                        <button
-                                            onClick={() => handleButtonClick(day.toLowerCase(), hourIndex + 8)}
-                                            className="btnt"
-                                            style={{ backgroundColor: buttonStates[`${day.toLowerCase()}-${hourIndex + 8}`] === 'En attente' ? 'orange' : null }}
-                                        >
-                                            {buttonStates[`${day.toLowerCase()}-${hourIndex + 8}`] === 'En attente' ? 'En attente' : 'Reserver'}
-                                        </button>
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    );
+      };
+      
+  
+  return (
+    <div>
+      <Navbar />
+      <h1 className='hh1'>Reserver une salle par ici</h1>
+      <select name="salle" id="" value={selectedSalle} onChange={handleSalleChange}className='select'>
+          <option value="Salle A">Salle A</option>
+          <option value="Salle B">Salle B</option>
+          <option value="Salle C">Salle C</option>
+          <option value="Salle D">Salle D</option>
+        </select>
+      <div className='containert'>
+       
+        {/* Appeler la fonction pour afficher le tableau correspondant */}
+        {renderTable()}
+      </div>
+    </div>
+  );
 }

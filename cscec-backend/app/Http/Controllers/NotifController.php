@@ -2,120 +2,116 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\employés;
-use App\Models\Salle; // Assurez-vous d'importer le modèle de salle
-use App\Notifications\demandeNotification; // Importez votre classe de notification
-use Illuminate\Http\Request;
 use App\Models\notifications;
+use Illuminate\Http\Request;
+use App\Notifications\demandeNotification;
+use SebastianBergmann\Environment\Console;
+use App\Models\Employee;
+use App\Models\Notification;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class NotifController extends Controller
 {
+
+
+
     public function demande(Request $request)
     {
-        // Vérifiez les autorisations de réservation, effectuez les validations nécessaires, etc.
+        // Validate the request
+        $validated = $request->validate([
+            'employe_id' => 'required|integer',
+            'title' => 'required|string',
+            'description' => 'required|string',
+        ]);
 
-        // Créez une nouvelle instance de salle
-
-        // Récupérez un employé pour envoyer la notification (vous pouvez adapter cette logique en fonction de votre application)
-        $employee = employés::first(); // Récupérez un employé à partir de votre base de données
-
-        // Envoyez la notification
-        $employee->notify(new demandeNotification($employee, $request->all()));
-        $donnees = notifications::orderBy('id', 'desc')->get();
-
-        // Vous pouvez également renvoyer une réponse appropriée ou rediriger l'utilisateur vers une autre page
-        return back()->with("success", "Notification sent successfully!");
-    }
-    public function show(Request $request)
-    {
-        // Récupérer un employé depuis votre base de données
-        $employee = employés::first();
-
-        // Récupérer les notifications de l'employé
-        $notifications = $employee->notifications;
-
-        // Préparez un tableau de données pour renvoyer à votre composant React
-        $formattedNotifications = $notifications->map(function ($notification) {
-            return [
-                'id' => $notification->id,
-                'data' => $notification->data,
-                'created_at' => $notification->created_at,
-                // Ajoutez d'autres propriétés de notification si nécessaire
-            ];
-        });
-
-        // Retournez les données formatées
-        return response()->json($formattedNotifications);
-    }
-
-
-    public function validation(Request $request)
-    {
-        // Récupérez les données de la demande
-        $day = $request->input('day');
-        $hour = $request->input('hour');
-        $action = $request->input('action'); // Valider ou refuser
-
-        // Recherchez la notification en fonction du jour et de l'heure dans la colonne data
-        $notification = notifications::whereJsonContains('data->day', $day)
-            ->whereJsonContains('data->hour', $hour)
-            ->first();
-
-        if (!$notification) {
-            // Si la notification n'est pas trouvée, retournez une réponse appropriée avec un code d'erreur
-            return response()->json(['error' => 'Notification not found'], 404);
+        // Verify if the Employee exists
+        $employe = employés::find($request->employe_id); // Make sure the model name matches your actual model, potentially 'Employé'
+        if (!$employe) {
+            return response()->json(['message' => 'Employé not found'], 404);
         }
 
-        // Mettez à jour le champ notifiable_id avec la valeur souhaitée (ici 2)
-        $notification->notifiable_id = 2;
+        // Create a new notification
+        $demande = new notifications(); // Assuming your model name is Notification
+        $demande->title = $request->title;
+        $demande->description = $request->description;
+        $demande->employé_id = $employe->id;
+        $demande->nom = $employe->nom;
+        $demande->save();
 
-        // Sauvegardez la notification mise à jour
-        $notification->save();
-
-        // Retournez une réponse appropriée
-        return response()->json(['message' => 'Notification updated successfully'], 200);
+        return response()->json(['message' => 'Demande created successfully!', 'demande' => $demande], 201);
     }
+
+
     public function verification(Request $request)
     {
-        // Récupérer le day et l'heure de la requête
         $day = $request->query('day');
         $hour = $request->query('hour');
 
-        // Recherchez la notification en fonction du jour et de l'heure
         $notification = notifications::where('data->day', $day)
             ->where('data->hour', $hour)
             ->first();
 
         if ($notification) {
-            // Récupérer le notifiable_id associé à la notification
             $notifiableId = $notification->notifiable_id;
-
-            // Retourner le notifiable_id dans la réponse JSON
             return response()->json(['notifiable_id' => $notifiableId], 200);
         } else {
-            // Si aucune notification correspondante n'est trouvée
             return response()->json(['error' => 'Notification not found for the given day and hour'], 404);
         }
     }
+
+
+
     public function annulerDemande(Request $request)
     {
+        $request->validate([
+            'day' => 'required|string',
+            'hour' => 'required|string',
+        ]);
+
         try {
-            // Get the day and hour from the request
             $day = $request->input('day');
             $hour = $request->input('hour');
 
-            // Find and cancel the reservation request based on day and hour
-            $notification = notifications::where('data->day', $day)
-                ->where('data->hour', $hour)
+            $notification = notifications::whereJsonContains('data', ['day' => $day, 'hour' => $hour])
                 ->firstOrFail();
+
             $notification->delete();
 
-            // Successful response
             return response()->json(['success' => true]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(['success' => false, 'message' => 'Notification not found'], 404);
         } catch (\Exception $e) {
-            // Handle errors
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
+    }
+
+
+    public function show(Request $request)
+    {
+        // Récupérer 'employe_id' de la requête
+
+        // Trouver l'employé par son ID
+
+
+        // Récupérer toutes les notifications de l'employé
+        $notifications = notifications::orderBy('created_at', 'desc')->get();
+
+        // Formatter les notifications en utilisant les colonnes réelles de la table
+        $formattedNotifications = $notifications->map(function ($notification) {
+            return [
+                'id' => $notification->id,
+                'title' => $notification->title,
+                'description' => $notification->description,
+                'created_at' => $notification->created_at->toIso8601String(),
+                'employé_id' => $notification->employé_id,
+                'nom' => $notification->nom, // Ajoutez le nom de l'employé
+            ];
+        });
+
+        // Renvoyer la réponse en JSON
+        return response()->json($formattedNotifications);
     }
 }

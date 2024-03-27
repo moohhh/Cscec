@@ -50,7 +50,7 @@ const SlidingImages = () => {
               </div>
             </div>
             <div className='prjpic'>
-              <img src={donnee.image_path} alt="Image" style={{ width: "60%", height: "65vh", float: 'right', borderRadius: "30px" }}/>
+              <img src={donnee.image_path} alt="Image" style={{ width: "60%", height: "65vh", float: 'right', borderRadius: "30px", }}/>
             </div>
           </div>
         ))}

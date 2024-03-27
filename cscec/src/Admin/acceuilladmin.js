@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../acceuill.css';
 import Slider from '../component/slider';
 import Afficher from '../afficher';
-import Navbar from '../component/navbar';
+import Navbarconnecter from '../component/navbarconnecter';
 import Footer from '../component/footer';
 
 const Acceuiladmin = () => {
@@ -88,7 +88,7 @@ const Acceuiladmin = () => {
   return (
     <>
       <div>
-        <Navbar />
+        <Navbarconnecter />
         <div className='ppp'>
           <div className='presentation'>
             <img src={require('../images/presentation.png')} className='presentationpic' alt="" />

@@ -5,20 +5,42 @@
 .containert{
     width: 10%;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.select{
+    width: 10%;
+    display: flex;
     justify-content: space-evenly;
     align-items: center;
     margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
 }
     .tt {
         width: 100%; /* ou une autre valeur appropriée */
         font-size: 12px;
         
-
+        
       }
       
 .ttt{
     width: auto;
+}
+.btnt{
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.61);
+    border: 1px solid #2c6cf5;
+
+    }
+.orangeBackground {
+    background-color: orange;
+    border: 1px solid #2c6cf5;
+
+    width: 60px;
+    height: 60px;
 }
 .tdt{
     width: 90px;
@@ -26,16 +48,7 @@
     border: 1px solid #2c6cf5;
     font-weight: bold;
     text-align: center;
+
 }
-.tdt button{
-    width: 60px;
-    height: 60px;
-    background-color: rgba(255, 255, 255, 0.61);
-    border: none;
-}
-.btnt{
-    background-color: orange;
-}
-.orangeBackground {
-    background-color: orange;
-}
+
+

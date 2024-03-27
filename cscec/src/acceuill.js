@@ -4,6 +4,7 @@ import Slider from './component/slider';
 import Afficher from './afficher';
 import Navbarconnecter from './component/navbarconnecter';
 import Footer from './component/footer';
+import Navbar from './component/navbar';
 
 const Acceuil = () => {
   const [showSlider, setShowSlider] = useState(false);
@@ -88,7 +89,7 @@ const Acceuil = () => {
   return (
     <>
       <div>
-        <Navbarconnecter />
+        <Navbar />
         <div className='ppp'>
           <div className='presentation'>
             <img src={require('./images/presentation.png')} className='presentationpic' alt="" />

@@ -1,101 +1,126 @@
 import React, { useState } from 'react';
-import { GoogleMap, Marker, LoadScript, Autocomplete } from '@react-google-maps/api';
+import './demandeChaffeur.css';
 import Navbar from './component/navbarconnecter';
+import axios from 'axios';
 
 function DemandeChauffeur() {
-  const [map, setMap] = useState(null);
-  const [autocomplete, setAutocomplete] = useState(null);
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [destination, setDestination] = useState(null);
-
-  const onLoad = (map) => {
-    setMap(map);
-  };
-
-  const onAutocompleteLoad = (autocomplete) => {
-    setAutocomplete(autocomplete);
-  };
-
-  const onPlaceChanged = () => {
-    if (autocomplete !== null) {
-      const place = autocomplete.getPlace();
-      setCurrentLocation({
-        lat: place.geometry.location.lat(),
-        lng: place.geometry.location.lng(),
-        address: place.formatted_address
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [departure, setDeparture] = useState('');
+  const [destination, setDestination] = useState('');
+  const [numero, setNumero] = useState('');
+  const [tripType, setTripType] = useState('Aller simple');
+  
+  // Assume 'employeId' is available and valid, replace with actual logic to retrieve it
+  const employe_id = localStorage.getItem('id'); // Récupérer l'ID de l'employé du stockage local
+  
+  // Handle form submission
+  const handleSubmit = async (event) => {
+    event.preventDefault();    
+    try {
+      const response = await axios.post('http://localhost:8000/api/demandechaffeur', {
+        employé_id: employe_id,
+        date,
+        heure: time,
+        destination, // Corrected key based on the expected API format
+        depart: departure,
+        telephone: numero,
+        type: tripType
       });
-    } else {
-      console.log('Autocomplete is not loaded yet!');
+      
+      console.log(response.data.message);
+      alert('Demande created successfully!');
+    } catch (error) {
+      console.error('There was an error!', error.response);
+      alert(error.response.data.message || 'Failed to create demande.');
     }
   };
-
-  const handleDestinationChange = (e) => {
-    setDestination(e.target.value);
-  };
-
   return (
-    <>
-      <Navbar />
-      <div style={{ width: '60vw', height: '80vh' }} className='map'>
-        <LoadScript
-          googleMapsApiKey="AIzaSyAcVQEnXKjrGME7PVJwdXRz_n4RTeAkNuE"
-          libraries={["places"]}
-        >
-          <GoogleMap
-            mapContainerStyle={{ width: '100%', height: '100%' }}
-            center={{ lat: 48.8566, lng: 2.3522 }}
-            zoom={8}
-            onLoad={onLoad}
-          >
-            {currentLocation && (
-              <Marker position={currentLocation} title="Ma Localisation" />
-            )}
-            {destination && (
-              <Marker position={destination} title="Destination" />
-            )}
-
-            {map && (
-              <Autocomplete
-                onLoad={onAutocompleteLoad}
-                onPlaceChanged={onPlaceChanged}
-              >
-                <input
-                  type="text"
-                  placeholder="Enter your current location"
-                  style={{ ...inputStyle, top: '10px', left: '50%' }}
-                />
-              </Autocomplete>
-            )}
-
-            <input
-              type="text"
-              placeholder="Enter your destination"
-              value={destination ? destination.address : ''}
-              onChange={handleDestinationChange}
-              style={{ ...inputStyle, top: '50px', left: '50%' }}
-            />
-          </GoogleMap>
-        </LoadScript>
+    <><Navbar />
+      <div className="image">
+        <img src={require('./images/chaffeur.jpg')} alt='' className="img" />
       </div>
-    </>
-  );
-}
+    <div className="reservation-form">
+      <form onSubmit={handleSubmit}>
+      <div className="input-group">
+  <div className="input-labels">
+    <label htmlFor="date">Date</label>
+    <label htmlFor="time">Heure</label>
+  </div>
+  <div className="input-fields">
+    <input
+      type="date"
+      id="date"
+      value={date}
+      onChange={(e) => setDate(e.target.value)}
+    />
+    <input
+      type="time"
+      id="time"
+      value={time}
+      onChange={(e) => setTime(e.target.value)}
+    />
+  </div>
+</div>
 
-const inputStyle = {
-  boxSizing: `border-box`,
-  border: `1px solid transparent`,
-  width: `240px`,
-  height: `32px`,
-  padding: `0 12px`,
-  borderRadius: `3px`,
-  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-  fontSize: `14px`,
-  outline: `none`,
-  textOverflow: `ellipses`,
-  position: "absolute",
-  marginLeft: "-120px",
-  marginTop: "10px",
-  zIndex: 1000,
+
+        <div className="input-group">
+          <label htmlFor="departure">Lieu de départ</label>
+          <input
+            type="text"
+            id="departure"
+            placeholder="Indiquez un lieu"
+            value={departure}
+            onChange={(e) => setDeparture(e.target.value)}
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="destination">Lieu de destination</label>
+          <input
+            type="text"
+            id="destination"
+            placeholder="Indiquez un lieu"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            />
+            
+            </div>
+            <div className="input-group">
+          <label htmlFor="numero">Votre numero</label>
+          <input
+            type="tel"
+            id="numero"
+            placeholder="Indiquez votre numero"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+
+            />
+            
+            </div>
+            <div className="input-group">
+      <label htmlFor="tripType">Type de trajet</label>
+      <select
+        id="tripType"
+        value={tripType}
+        onChange={(e) => setTripType(e.target.value)}
+      >
+        <option value="Aller simple">Aller simple</option>
+        <option value="Aller retour">Aller retour</option>
+        <option value="Autre">Autre</option>
+        {/* Add additional trip types as needed */}
+      </select>
+    </div>
+    <button type="submit" className="enregistre-button" onClick={handleSubmit}>
+Enregistrer la demande    </button>
+    <button type="submit" className="reserve-button"onClick={handleSubmit}>
+      
+      Réserver maintenant
+    </button>
+  </form>
+</div>
+</>
+  );
 };
 
 export default DemandeChauffeur;

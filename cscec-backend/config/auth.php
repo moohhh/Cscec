@@ -40,6 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+
+        'employés' => [ // Add this guard
+            'driver' => 'session',
+            'provider' => 'employés',
+        ],
     ],
 
     /*
@@ -58,17 +69,16 @@ return [
     | Supported: "database", "eloquent"
     |
     */
-
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'employés' => [ // Add this provider
+            'driver' => 'eloquent',
+            'model' => App\Models\employés::class,
+        ],
     ],
 
     /*
