@@ -42,7 +42,7 @@ class documantationExternController extends Controller
         try {
             $doc = documantationextern::findOrFail($validated['id']);
             $doc->delete();
-            return response()->json(['message' => 'Document deleted successfully']);
+            return response()->json(['message' => 'Document supprimer avec succès ']);
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred'], 500);
         }
@@ -83,7 +83,7 @@ class documantationExternController extends Controller
         $doc->save();
 
         // Return a successful response
-        return response()->json(['message' => 'Document added successfully']);
+        return response()->json(['message' => 'Document ajouter succès'], 200);
     }
 
     public function downloadFile($filePath)

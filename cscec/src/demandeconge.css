@@ -1,0 +1,101 @@
+.reservation-form-conge {
+    background: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 4px;
+    width: 30%;
+    /* Adjust the width as needed */
+    float: right;
+    position: absolute;
+    left: 10%;
+    top: 25%;
+
+
+}
+
+.imageconge {
+    float: right;
+    width: 60%;
+    height: 500px;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-labels,
+.input-fields {
+    display: flex;
+    justify-content: space-between;
+    /* This will space out your labels and inputs */
+}
+
+.input-labels label,
+.input-fields input {
+    flex-basis: 48%;
+    /* This will make each take up 40% of the container width */
+    text-align: start;
+}
+
+.input-fields input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 5px;
+    /* This ensures a little space between labels and inputs */
+}
+
+.reserve-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #2c6cf5;
+    /* Gold color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.reserve-button:hover {
+    background-color: #2c6cf5;
+    /* Lighter gold color */
+}
+
+.reserve-button:active {
+    opacity: 0.8;
+}
+
+.enregistre-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    /* Gold color */
+    color: #2c6cf5;
+    border: none;
+    border: 1px solid #2c6cf5;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}

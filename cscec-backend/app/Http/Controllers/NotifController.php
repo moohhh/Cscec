@@ -66,39 +66,62 @@ class NotifController extends Controller
 
     public function annulerDemande(Request $request)
     {
+        // Valider la requête
         $request->validate([
-            'day' => 'required|string',
-            'hour' => 'required|string',
+            'nom' => 'required|string',
+            'description' => 'required|string',
         ]);
-
+    
         try {
-            $day = $request->input('day');
-            $hour = $request->input('hour');
-
-            $notification = notifications::whereJsonContains('data', ['day' => $day, 'hour' => $hour])
-                ->firstOrFail();
-
+            // Extraire les données de la requête
+            $nom = $request->input('nom');
+            $description = $request->input('description');
+    
+            // Trouver la notification associée au nom et à la description spécifiés
+            $notification = notifications::where('nom', $nom)
+                ->where('description', $description);
+    
+            // Supprimer la notification
             $notification->delete();
-
-            return response()->json(['success' => true]);
+    
+            return response()->json(['success' => true, 'message' => 'Notification annulée avec succès']);
         } catch (ModelNotFoundException $e) {
-            return response()->json(['success' => false, 'message' => 'Notification not found'], 404);
+            return response()->json(['success' => false, 'message' => 'Notification non trouvée'], 404);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
-
-
+    public function annulerDemandebyid(Request $request)
+    {
+    
+            $validated = $request->validate([
+                'id' => 'required|integer',
+            ]);
+    
+            try {
+                $doc = notifications::findOrFail($validated['id']);
+                $doc->delete();
+                return response()->json(['message' => 'demande supprimer avec succès ']);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'An error occurred'], 500);
+            }
+    }
     public function show(Request $request)
     {
-        // Récupérer 'employe_id' de la requête
-
-        // Trouver l'employé par son ID
-
-
+        // Récupérer l'identifiant de l'employé de la requête
+        $employe_id = $request->input('employe_id');
+    
+        // Vérifier si l'employé existe
+        $employe = employés::find($employe_id);
+        if (!$employe) {
+            return response()->json(['message' => 'Employé not found'], 404);
+        }
+    
         // Récupérer toutes les notifications de l'employé
-        $notifications = notifications::orderBy('created_at', 'desc')->get();
-
+        $notifications = notifications::where('employé_id', $employe_id)
+                                        ->orderBy('created_at', 'desc')
+                                        ->get();
+    
         // Formatter les notifications en utilisant les colonnes réelles de la table
         $formattedNotifications = $notifications->map(function ($notification) {
             return [
@@ -110,8 +133,9 @@ class NotifController extends Controller
                 'nom' => $notification->nom, // Ajoutez le nom de l'employé
             ];
         });
-
+    
         // Renvoyer la réponse en JSON
         return response()->json($formattedNotifications);
     }
+    
 }

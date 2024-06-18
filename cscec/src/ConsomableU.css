@@ -1,0 +1,35 @@
+/* Style for the main container */
+.main-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Style for the heading */
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Style for the list */
+.item-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Style for each list item */
+.item {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Style for the ID, Nom, Quantite paragraphs */
+.item-info {
+  margin: 5px 0;
+  font-weight: bold;
+}

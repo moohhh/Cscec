@@ -1,0 +1,101 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #2c6cf5;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.navbar div,
+.navbar a {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.profile-content {
+    flex: 1;
+    padding: 10px;
+    background-color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-content h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+.user-image {
+    border-radius: 50%;
+    margin-bottom: 20px;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-details {
+    text-align: left;
+}
+
+.profile-details p {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.profileh1 {
+    margin: 0 auto;
+}
+
+.edit_password {
+    border: 1px solid #2c6cf5;
+    color: #2c6cf5;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: white;
+    margin-right: 20px;
+}
+
+.deconnecter {
+    background-color: #2c6cf5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit_passwordbtn {
+    border: 1px solid #2c6cf5;
+    background-color: #2c6cf5;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}

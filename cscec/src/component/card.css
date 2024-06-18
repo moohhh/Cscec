@@ -136,7 +136,8 @@
   transform-style: preserve-3d;
   transition: 1s;
 }
-.card-inner:hover{
+
+.card-inner:hover {
   height: 110%;
 }
 
@@ -165,15 +166,35 @@
   transform: rotateY(-180deg);
   transition: 2s;
 }
+
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);
   }
+
   to {
     transform: translateX(0%);
   }
 }
+
 /* Apply slideInFromRight animation to the .card-container */
 .card-container.slide-in {
   animation: slideInFromRight 2s ease-in-out;
+}
+
+.supprimerevenment {
+  background-color: red;
+  color: white;
+  height: 26px;
+  border: 1px solid red;
+  border-radius: 4px;
+  margin: 5px;
+
+}
+
+.supprimerevenment:hover {
+  color: red;
+  cursor: pointer;
+  background-color: #ffffff;
+
 }

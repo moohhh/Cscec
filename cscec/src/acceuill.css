@@ -46,7 +46,7 @@
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  box-shadow:#2c6cf5  0.95px 4.95px 14.6px;
+  box-shadow: #2c6cf5 0.95px 4.95px 14.6px;
 }
 
 .age p.num {
@@ -66,14 +66,15 @@
 
 .ta {
   float: right;
-  
+
 }
 
 /* Style the table */
 .tablebio {
   width: 100%;
-  border-spacing: 30px; /* Add spacing between adjacent cells */
-  
+  border-spacing: 30px;
+  /* Add spacing between adjacent cells */
+
 }
 
 /* Style the table cells */
@@ -81,74 +82,92 @@
   padding: 15px;
   padding-right: 60px;
   padding-left: 60px;
-  border: 1px solid #ddd; /* Add borders to the cells */
+  border: 1px solid #ddd;
+  /* Add borders to the cells */
   box-shadow: #2c6cf5 0.95px 4.95px 14.6px;
-border-radius: 30px;
+  border-radius: 30px;
 }
 
 /* Style the paragraph elements inside the cells */
 p.num {
   font-size: 24px;
-  color: #2c6cf5; /* Dark color for the numbers */
+  color: #2c6cf5;
+  /* Dark color for the numbers */
 }
 
 p.tex {
   font-size: 16px;
-  color: #666; /* Slightly lighter color for the text */
+  color: #666;
+  /* Slightly lighter color for the text */
 }
 
 /* Responsive styles */
 @media only screen and (max-width: 768px) {
   .bio {
-    width: 80%; /* Adjust width for smaller screens */
-    float: none; /* Remove float for better responsiveness */
+    width: 80%;
+    /* Adjust width for smaller screens */
+    float: none;
+    /* Remove float for better responsiveness */
   }
 
   .age {
-    margin-left: 0; /* Adjust margin for smaller screens */
-    margin-top: 20px; /* Adjust margin for smaller screens */
-    align-items: center; /* Center items */
-    text-align: center; /* Center text */
+    margin-left: 0;
+    /* Adjust margin for smaller screens */
+    margin-top: 20px;
+    /* Adjust margin for smaller screens */
+    align-items: center;
+    /* Center items */
+    text-align: center;
+    /* Center text */
   }
 
   .age p.num {
-    font-size: 42px; /* Adjust font size for smaller screens */
+    font-size: 42px;
+    /* Adjust font size for smaller screens */
   }
 
   .age p.tex {
-    font-size: 14px; /* Adjust font size for smaller screens */
+    font-size: 14px;
+    /* Adjust font size for smaller screens */
   }
 
   table {
-    border-spacing: 15px; /* Adjust spacing between cells for smaller screens */
+    border-spacing: 15px;
+    /* Adjust spacing between cells for smaller screens */
   }
 
   td {
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 10px;
+    /* Adjust padding for smaller screens */
     padding-right: 30px;
     padding-left: 30px;
   }
 
   p.num {
-    font-size: 20px; /* Adjust font size for smaller screens */
+    font-size: 20px;
+    /* Adjust font size for smaller screens */
   }
 
   p.tex {
-    font-size: 12px; /* Adjust font size for smaller screens */
+    font-size: 12px;
+    /* Adjust font size for smaller screens */
   }
 }
 
 @media only screen and (max-width: 600px) {
   .bio {
-    width: 90%; /* Further adjust width for even smaller screens */
+    width: 90%;
+    /* Further adjust width for even smaller screens */
   }
 
   .presentation {
-    height: 300px; /* Adjust height of presentation for smaller screens */
+    height: 300px;
+    /* Adjust height of presentation for smaller screens */
   }
 
   .age p.num {
-    font-size: 36px; /* Further adjust font size for smaller screens */
+    font-size: 36px;
+    /* Further adjust font size for smaller screens */
   }
 }
 
@@ -156,6 +175,7 @@ p.tex {
   from {
     transform: translateX(-100%) rotate(0deg);
   }
+
   to {
     transform: translateX(0) rotate(360deg);
   }
@@ -169,26 +189,42 @@ p.tex {
 /* Define the slide-in animation for .ta elements */
 @keyframes slideInFromRight {
   from {
-opacity: 0;  }
+    opacity: 0;
+  }
+
   to {
-opacity: 1;  }
+    opacity: 1;
+  }
 }
 
 /* Apply slideInFromRight animation to .ta elements with .slide-in class */
 .ta.slide-in {
   animation: slideInFromRight 2s ease-in-out;
 }
-.presp{
+
+.presp {
   width: 80%;
   margin: 0 auto;
-  font-size:xxx-large;
-  font-weight:bold;
+  font-size: xxx-large;
+  font-weight: bold;
 }
-.prjp{
+
+.prjp {
   width: 90%;
   margin-left: 100px;
   margin-top: 30px;
   margin-bottom: 30px;
   font-family: sans-serif;
   font-size: larger;
+}
+
+.ajouter-btn {
+  background-color: #2c6cf5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 100px;
 }

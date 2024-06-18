@@ -7,6 +7,8 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [nom, setNom] = useState('');
+  const [mp_status, setMp_status] = useState(0);
+  const [grade, setGrade] = useState('');
   const [id, setId] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -37,25 +39,41 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/api/login', {
+      const loginResponse = await axios.post('http://localhost:8000/api/login', {
         nom: nom,
         email: email,
         password: password,
       });
+      {
 
-      // Stocker les informations de connexion dans le stockage local
-      localStorage.setItem('nom', nom);
-      localStorage.setItem('email', email);
+        // Stocker les informations de connexion dans le stockage local
+        localStorage.setItem('nom', loginResponse.data.employé.nom);
+        localStorage.setItem('email', loginResponse.data.employé.email);
+        localStorage.setItem('mp_status', loginResponse.data.employé.mp_status);
+        localStorage.setItem('grade', loginResponse.data.employé.grade);
+        localStorage.setItem('id', loginResponse.data.employé.id);
 
-      if (email === "moh@gmail.com") {
-        navigate('/accueilladmin');
-        info(); // Appel de la fonction info après la connexion réussie
-      } else {
-        navigate('/accueillconnecter');
-        info(); // Appel de la fonction info après la connexion réussie
 
+        // Vérification du mp_status pour demander le changement de mot de passe
+
+
+        // Appel de la fonction getInfo pour récupérer les autres informations
+        const infoResponse = await axios.post('http://localhost:8000/api/getInfo', {
+          nom: loginResponse.data.employé.nom,
+          email: loginResponse.data.employé.email,
+        });
+
+        if (loginResponse.data.employé.mp_status === '1') {
+          alert('C\'est votre première connexion. Veuillez changer votre mot de passe.');
+
+        }
+        // Redirection en fonction du grade de l'utilisateur
+        if (loginResponse.data.employé.grade === "admin") {
+          navigate('/accueilladmin');
+        } else {
+          navigate('/accueillconnecter');
+        }
       }
-
     } catch (error) {
       console.error('Error during login:', error.message);
       if (error.response && error.response.data && error.response.data.message) {

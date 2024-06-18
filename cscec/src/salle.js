@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function SalleAdmin() {
     const [buttonStates, setButtonStates] = useState({});
 
+
     useEffect(() => {
         const storedButtonStates = localStorage.getItem('buttonStates');
         if (storedButtonStates) {
@@ -22,42 +23,41 @@ export default function SalleAdmin() {
         const isButtonClicked = buttonStates[buttonId];
 
         try {
-            if (!isButtonClicked || isButtonClicked === 'Reserver') {
-                // Envoyer une demande de réservation
+            if (!isButtonClicked || isButtonClicked === RESERVE) {
+                // Send reservation request
                 await axios.post('http://localhost:8000/api/demande', {
                     titre: "Reservation de salle",
                     day: day,
                     hour: hour
                 });
                 console.log('Notification envoyée avec succès !');
-
-                // Mettre à jour l'état du bouton à "En attente"
-                const updatedButtonStates = {
-                    ...buttonStates,
-                    [buttonId]: 'En attente'
-                };
-                setButtonStates(updatedButtonStates);
-                saveButtonStatesToLocalStorage(updatedButtonStates);
-            } else {
-                // Annuler la demande de réservation
+                updateButtonState(buttonId, WAITING);
+            } else if (isButtonClicked === WAITING) {
+                // Cancel reservation request
                 await axios.post('http://localhost:8000/api/annulerDemande', {
                     day: day,
-                    hour: hour // ID de la notification à annuler
+                    hour: hour // ID of the notification to cancel
                 });
                 console.log('Notification annulée avec succès !');
-
-                // Mettre à jour l'état du bouton à "Reserver"
-                const updatedButtonStates = {
-                    ...buttonStates,
-                    [buttonId]: 'Reserver'
-                };
-                setButtonStates(updatedButtonStates);
-                saveButtonStatesToLocalStorage(updatedButtonStates);
+                updateButtonState(buttonId, RESERVE);
             }
         } catch (error) {
-            console.error('Error handling button click:', error);
+            console.error('Erreur lors du traitement du clic sur le bouton :', error.response ? error.response.data : error.message);
         }
     };
+
+    const updateButtonState = (buttonId, state) => {
+        const updatedButtonStates = {
+            ...buttonStates,
+            [buttonId]: state
+        };
+        setButtonStates(updatedButtonStates);
+        saveButtonStatesToLocalStorage(updatedButtonStates);
+    };
+
+    // Constantes pour les états des boutons
+    const RESERVE = 'Reserver';
+    const WAITING = 'En attente';
 
     return (
         <div>
